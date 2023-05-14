@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preinstall": "[ \"$IS_CONTAINER\" != 1 ] && echo \"Installing packages is not permitted outside of a container!\" 1>&2 && exit 1; exit 0",
+    "predev": "[ \"$IS_CONTAINER\" != 1 ] && echo \"Running the application is not permitted outside of a container!\" 1>&2 && exit 1; exit 0",
+    "prebuild": "[ \"$IS_CONTAINER\" != 1 ] && echo \"Building the application is not permitted outside of a container!\" 1>&2 && exit 1; exit 0",
+    "prestart": "[ \"$IS_CONTAINER\" != 1 ] && echo \"Starting the applicaiton is not permitted outside of a container!\" 1>&2 && exit 1; exit 0",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
