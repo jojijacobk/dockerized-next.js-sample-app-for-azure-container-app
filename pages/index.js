@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Home({data}) {
   return (
     <div className={styles.container}>
       <Head>
@@ -12,9 +12,18 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to my app!</h1>
+        <div id="secrets">
+          <h1>Environment variables in the container</h1>
+          <pre>{JSON.stringify(data)}</pre>
+        </div>
       </main>
 
       <footer className={styles.footer}>Sample app</footer>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const data = process.env;
+  return {props: {data}};
 }
