@@ -1,7 +1,12 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-export default function Home({data}) {
+export default function Home(data) {
+  const envVars = Object.entries(JSON.parse(data.env));
+  const generateUniqueKey = () => {
+    return "_" + Math.random().toString(36).substring(2, 9);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,9 +17,17 @@ export default function Home({data}) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to my app!</h1>
-        <div id="secrets">
+        <div className={styles.code}>
           <h1>Environment variables in the container</h1>
-          <pre>{JSON.stringify(data)}</pre>
+          <ul>
+            {envVars.map(item => {
+              return (
+                <li key={generateUniqueKey()}>
+                  {item[0]} : {item[1]}
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </main>
 
@@ -24,6 +37,5 @@ export default function Home({data}) {
 }
 
 export async function getServerSideProps() {
-  const data = process.env;
-  return {props: {data}};
+  return {props: {env: JSON.stringify(process.env)}};
 }
