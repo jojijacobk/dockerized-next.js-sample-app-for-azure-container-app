@@ -15,8 +15,8 @@ COPY --chown=node:node public /app/public
 COPY --chown=node:node styles /app/styles
 COPY --chown=node:node next.config.js /app
 USER node
-EXPOSE 3001
-# RUN npm run build
+EXPOSE 3003
+RUN npm run build
 FROM builder AS runner
 # start app
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
